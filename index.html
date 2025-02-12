@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather_App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="Weather_Application\style.css">
+</head>
+
+<style>
+
+    body{
+        background-color: rgba(0, 0, 0, 0.39);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+    .container{
+        height:500px;
+        margin-top: 7%;
+        border-radius: 20px;
+        width: 400px;
+        background: linear-gradient(-90deg, rgb(62, 135, 237) 0%, rgba(41, 60, 152, 0.817) 150%);
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+    }
+
+    .searchbox{
+        width: 100%;
+        height: 50px;
+    }
+    .searchbox form{
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+    .searchbox form input{
+
+        width: 70%;
+        height: 70%;
+        border-radius: 20px;
+        border: none;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 15px;
+        color: gray;
+        text-align: center;
+       
+
+    }
+
+    .searchbox form input:hover{
+        box-shadow: 1px 3px 12px 10px rgba(109, 71, 234, 0.783);
+    }
+
+    #loc{
+        color: red;
+        font-size: 25px;
+        margin-right: 10px;
+    }
+    #sear{
+        color: rgb(255, 255, 255);
+        font-size: 25px;
+        margin-left: 10px; 
+        
+       
+        
+    }
+
+
+    .report{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        height: 100px;
+        align-items: center;
+        margin: 20px;
+        color: white;
+        font-size: 20px;
+
+    }
+    
+    .report .temp{
+        font-size: 40px;
+        margin: 2px;
+    }
+    .report .des{
+        margin: 0;
+        font-size: 30px;
+    }
+
+    .detail{
+        
+        display: flex; 
+        flex-direction: row;
+        height: 130px;
+        align-items: center;
+        margin: 20px;
+        color: rgb(250, 242, 242);
+        font-size: 30px;
+    }
+    .humanidy{
+        margin-left: 25px;
+
+    }
+    .Wind{
+        margin-left: 15px;
+    }
+    #wi{
+        margin-left: 65px;
+         
+    }
+
+    .weather_img{
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    img{
+        height: 100%;
+        width: 40%;
+        
+    }
+</style>
+
+
+<body>
+
+   <div class="container">
+    <div class="searchbox">
+        <form>
+            <i class="fa-solid fa-location-dot" id="loc"></i>
+            <input type="search" placeholder="Search by City">
+            <i class="fa-solid fa-magnifying-glass" id="sear"></i>
+        </form>
+    </div>
+
+
+    <div class="weather_img">
+
+        <img src="C:\Users\acer\OneDrive\Desktop\CompleteWebDevelopment\Projects\Weather_Application\project_images\Clear.png">
+
+    </div>
+
+
+
+  <div class="report">
+    <h2 class="temp">
+        0&deg; C
+       </h2>
+    
+       <h2 class="des">weather</h2>
+  </div>
+
+  <div class="detail">
+    <i class="fa-solid fa-temperature-high"></i>
+    <h3 class="humanidy">0%</h3>
+    <i class="fa-solid fa-wind" id="wi"></i>
+    <h3 class="Wind">0km/h</h3>
+
+</div>
+
+
+
+   </div>
+    
+
+
+<script>
+    const api = "b235af592a88dc1d9cac12b8de7ca0d7"
+
+    let form = document.querySelector('form');
+    let input = document.querySelector('input');
+    let temp = document.querySelector('.temp');
+    let des = document.querySelector('.des');
+    let humanidy = document.querySelector('.humanidy');
+    let Wind = document.querySelector('.Wind');
+    
+    
+
+
+
+
+    form.addEventListener(`submit`, (e) =>{
+        e.preventDefault();
+
+        let city = input.value;
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}&units=metric`;
+        fetch(url)
+
+        .then((res) => res.json())
+        .then((data) => {
+
+            
+            console.log(data);
+            temp.innerHTML = `${data.main.temp}&deg; C`;
+            des.innerHTML = data.weather[0].main;
+            humanidy.innerHTML = `${data.main.humidity}%`;
+            Wind.innerHTML = `${data.wind.speed}km/h`;
+
+
+
+
+        })
+   
+
+        
+
+    
+    })
+
+   
+    
+
+
+</script>
+
+
+</body>
+</html>
